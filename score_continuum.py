@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from glob import glob
 from PIL import Image
 
@@ -12,8 +13,8 @@ print("Enter name: ")
 subject_name = str(input())
 
 # get scoring of all images 10 times
-indicies = np.arange(n)
-scores = np.zeros((10, n))
+df = pd.DataFrame()
+indicies = np.arange(len(images))
 for i in range(10):
     # Go through all the images in random order
     np.random.shuffle(indicies)
@@ -21,9 +22,14 @@ for i in range(10):
         # display image
         images[idx].show()
 
+        # get image name
+        name = files[idx].split('\\')[-1].split('.jpg')[0]
+
         # get score from subject
         print("Enter score (1-5): ")
-        scores[i, idx] = int(input())
+        score = int(input())
 
-# store the results
-np.savetxt(f'./results/scoring_{subject_name}.txt', scores, delimiter=',')
+        # add to dataframe
+        df.loc[i, name] = score
+
+df.to_csv(f'./results/scoring_{subject_name}.csv', index=True)
