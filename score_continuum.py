@@ -38,4 +38,4 @@ for i in range(10):
         # add to dataframe
         df.loc[i, name] = score
 
-df.to_csv(f'./results/scoring_{subject_name}.csv', index=True)
+df.to_csv(f'./results/scoring_{subject_name}.csv', index=False)
