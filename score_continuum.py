@@ -26,8 +26,14 @@ for i in range(10):
         name = files[idx].split('\\')[-1].split('.jpg')[0]
 
         # get score from subject
-        print("Enter score (1-5): ")
-        score = int(input())
+        score = 0
+        while True:
+            score = input("Enter score (1-5): ")
+            if score in ('1', '2', '3', '4', '5'):
+                break
+            else:
+                print('Error: Not an integer between 1 and 5. Try again :)')
+        score = int(score)
 
         # add to dataframe
         df.loc[i, name] = score
